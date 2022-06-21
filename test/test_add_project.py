@@ -1,10 +1,11 @@
 from model.project import Project
 
+
 def test_add_project(app):
-    app.session.login("administrator", "root")
-    old_project_list = app.project.get_project_list()
-    project = Project(name="new_project", description="description")
+
+    old_list = app.project.get_project_list()
+    project = Project(name='name', description='disc')
     app.project.create(project)
-    new_project_list = app.project.get_project_list()
-    old_project_list.append(project)
-    assert sorted(old_project_list, key=Project.sorting_name) == sorted(new_project_list, key=Project.sorting_name)
+    new_list = app.soap.get_project_list()
+    old_list.append(project)
+    assert sorted(old_list, key=Project.sorting_name) == sorted(new_list, key=Project.sorting_name)

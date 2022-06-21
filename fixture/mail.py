@@ -13,13 +13,13 @@ class MailHelper:
             pop = poplib.POP3(self.app.config['james']['host'])
             pop.user(username)
             pop.pass_(password)
-            num = pop.stat()[0]
-            if num > 0:
-                for n in range(num):
-                    msglines = pop.retr(n+1)[1]
-                    msgtext = "\n".join(map(lambda x: x.decode('utf-8'), msglines))
-                    msg = email.message_from_string(msgtext)
-                    if msg.get("Subject") == subject:
+            letters = pop.stat()[0]  # получить количество писем
+            if letters > 0:
+                for n in range(letters):
+                    msg_lines = pop.retr(n+1)[1]  # открыть письмо, индексация с 1
+                    msg_text = '\n'.join(map(lambda x: x.decode('utf-8'), msg_lines))
+                    msg = email.message_from_string(msg_text)
+                    if msg.get('Subject') == subject:
                         pop.dele(n+1)
                         pop.quit()
                         return msg.get_payload()

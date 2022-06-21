@@ -3,8 +3,8 @@ from fixture.session import SessionHelper
 from fixture.project import ProjectHelper
 from fixture.james import JamesHelper
 from fixture.mail import MailHelper
-from fixture.signup import SignupHelper
 from fixture.soap import SoapHelper
+from fixture.signup import SignupHelper
 
 
 
@@ -21,8 +21,8 @@ class Application:
             raise ValueError ("Unrecognized browser %s" % browser)
         self.wd.implicitly_wait(3)
         self.session = SessionHelper(self)
-        self.james = JamesHelper(self)
         self.project = ProjectHelper(self)
+        self.james = JamesHelper(self)
         self.mail = MailHelper(self)
         self.signup = SignupHelper(self)
         self.soap = SoapHelper(self)
